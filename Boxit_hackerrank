@@ -1,0 +1,57 @@
+class Box {
+    int l, b, h;
+    public:
+    Box() {
+        l = 0;
+        b = 0;
+        h = 0;
+    }
+    
+    Box(int l, int b, int h) {
+        this->l = l;
+        this->b = b;
+        this->h = h;
+    }
+    
+    Box(Box& boxObject) {
+        l = boxObject.l;
+        b = boxObject.b;
+        h = boxObject.h;
+    }
+    
+    int getLength() {
+        return l;
+    }
+    
+    int getBreadth() {
+        return b;
+    }
+    
+    int getHeight() {
+        return h;
+    }
+    
+    long long CalculateVolume() {
+        return l * 1ll * b * h;
+        //return volume;
+    }
+    
+    bool operator <(const Box& boxObject) {
+        Box temp;
+        if(l < boxObject.l) {
+            return true;
+        } else if(b < boxObject.b && l == boxObject.l) {
+            return true;
+        } else if(h < boxObject.h && b == boxObject.b && l == boxObject.l) {
+            return true;
+        }
+        return false;
+    }
+    friend ostream& operator <<(ostream& out, Box& B);
+    
+};
+
+ostream& operator <<(ostream& out, Box& B) {
+    out << B.l << " " << B.b << " " << B.h;
+    return out;
+}
