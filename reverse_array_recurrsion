@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+void swap(){
+    return;
+}
+void revrec(int i,int n,int a[]){
+    if(i>=n/2){
+        return;
+    }
+    swap(a[i],a[n-1-1]);
+    revrec(i+1,n,a);
+}
+
+void print(int a[]){
+    for(int i=0;i<10;i++){
+        cout<<a[i]<<" ";
+    }
+}
+
+int main() {
+   int a[]={9,8,7,6,5,4,3,2,1,0};
+   int n=10;
+   print(a);
+   revrec(0,n,a);
+   cout<<endl;
+   print(a);
+}
