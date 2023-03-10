@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+// infix to prefix
+class Solution {
+public:
+    map<char,int> priority;
+
+    Solution() {
+        priority['+']=1;
+        priority['-']=1;
+        priority['*']=2;
+        priority['/']=2;
+        priority['^']=3;
+        priority['(']=0;
+    }
+    
+    string reversee(string s){
+        
+        string res="";
+        int len=s.length();
+        for(int i=len-1;i>=0;i--){
+            if(s[i]=='('){
+               res+=')'; 
+            }
+             
+             else if(s[i]==')'){
+               res+='('; 
+            }
+            
+            else{
+                res+=s[i];
+            }
+            
+           
+        }
+        
+        return res;
+    }
+
+    string postFix(string s) {
+        
+        string postfix="";
+        stack<char> st;
+        
+        for(int i=0;i<s.length();i++){       // postfix= FED/C*BA+-+ //F +((E/D)*C-(B+A))
+                                             // stk=
+            if(s[i]=='('){
+                st.push(s[i]);
+            }
+            else if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z')){
+                postfix+=s[i];
+            }
+            else if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/' || s[i]=='^' ){
+                if(st.empty()){
+                    st.push(s[i]);
+                }
+               // cout<<priority[st.top()];
+               else if(priority[s[i]]>priority[st.top()]){
+                    st.push(s[i]);
+                }
+                
+                else if(priority[s[i]]<=priority[st.top()]){
+                    while(!st.empty() && priority[s[i]]<=priority[st.top()]){
+                        postfix+=st.top();
+                        st.pop();  
+                        
+                    }
+                    st.push(s[i]);
+                }
+                
+            }
+            else if(s[i]==')'){
+                while(st.top()!='('){
+                        postfix+=st.top();
+                        st.pop();
+                        
+                    }
+                    st.pop();
+            }
+            
+           
+           
+            
+        }
+        
+         while(!st.empty()){
+                 postfix+=st.top();
+                        st.pop();
+            }
+        return postfix;
+    }
+};
+
+int main() {
+    string str= "F+((E/D)*C-(B+A))";
+    Solution obj1;
+   string str1= obj1.reversee(str);
+   
+   string str2=obj1.postFix(str1);
+   cout<< obj1.reversee(str2);
+   return 1;
+    
+}
