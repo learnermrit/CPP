@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+class Prefixtoinfix{
+    public:
+    
+    bool check(char ch){
+        
+        switch (ch){
+            case '+':
+            case '-':
+            case '/':
+            case '*':
+            case '^':
+             return true;
+        }
+        return false;
+    }
+    
+    string pretoInfix(string str){
+        
+        int length =str.length();
+        stack<string> stk;
+        
+        for(int i=length-1;i>=0;i--){
+            if((str[i]>='A' && str[i]<='Z') || (str[i]>='a' && str[i]<='z') ){
+                
+                stk.push(string(1,str[i]));
+            }
+            
+            else if(check(str[i])){
+                string str1= stk.top();  stk.pop();
+                
+                string str2= stk.top(); stk.pop();
+                
+                
+                string strpush= '(' + str1+ str[i] + str2 +')';
+                
+                stk.push(strpush);
+                
+            }
+        }
+        
+        return stk.top();
+    }
+    
+};
+
+int main() {
+    //prefix to infix
+    //+ab  //(a+b)
+    // step1 :- scan in reverse
+    // step-2:- if charcter occur push in stack 
+    //step 3:- if operator take top two element from stack 
+    //step 3(a):- string = '('+ top1 + operator + top2 + ')'  push back in stack
+    //last step: return top of stack
+     
+     string str="+ab";
+     
+     Prefixtoinfix obj1;
+     cout<<obj1.pretoInfix(str);
+     
+     
+     
+
+     
+    
+   
+}
