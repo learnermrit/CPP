@@ -258,6 +258,20 @@ class Node{
 
     }
 
+    static Node* LCA(Node* root,int n1,int n2){
+    	if(root==nullptr) return nullptr;
+
+    	if(root->data==n1 || root->data==n2) return root;
+
+    	Node* left =LCA(root->left,n1,n2);
+    	Node* right= LCA(root->right,n1,n2);
+
+    	if(left==nullptr) return right;
+    	if(right==nullptr) return left;
+
+    	return root;
+    }
+
 
 };
  
@@ -299,6 +313,11 @@ cout<<"inorder= ";
  int ans=0;
  Node::heightOfTreeForDiameter(r,ans);
  cout<<ans;
+
+ cout<<endl;
+
+ Node* lca=Node::LCA(r,3,8);
+ cout<<"LCA = "<<lca->data;
  
 
 
